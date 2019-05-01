@@ -18,7 +18,7 @@ rotate([0,0,280])translate([-1,79.25,0])pelton();
 rotate([0,0,300])translate([-1,79.25,0])pelton();
 rotate([0,0,320])translate([-1,79.25,0])pelton();
 rotate([0,0,340])translate([-1,79.25,0])pelton();
-;
+
 
 module hub(){
     difference(){
@@ -75,33 +75,38 @@ module wedge(){
 }
 
 module pelton(){
-    
-    translate([7.5,0,0])rotate([0,90,0])scale([0.65,0.65,0.65])blade();
-    translate([7.5,0,0])rotate([0,90,0])scale([0.65,0.65,0.65])handle();
+    union(){
+    translate([7.5,-1,0])rotate([0,90,0])scale([0.65,0.65,0.65])blade();
+    translate([7.5,1,0])rotate([0,90,0])scale([0.65,0.65,0.65])handle();
+    }
 }
 
-module blade(){  
-    translate([12,0,0])half_blade();
-    translate([-12,0,0])mirror([1,0,0])half_blade();
+module blade(){
+    union(){
+    translate([11.999,0,0])half_blade();
+    translate([-11.999,0,0])mirror([1,0,0])half_blade();
+    }
 }
 
 module handle(){
+    union(){
     difference(){
         translate([0,-20,-10])cube([30,50,14],center = true);
-        translate([12,0,0])scale([1.25,2.5,1.5])sphere($fn = 50, $fa = 20, $fs = 20, d= 30, center = true);
-        translate([-12,0,0])scale([1.25,2.5,1.5])sphere($fn = 50, $fa = 20, $fs = 20, d= 30, center = true);
+        translate([12,0,0])scale([1.25,2.5,1.5])sphere($fn = 200, $fa = 1, $fs = 1, d= 30, center = true);
+        translate([-12,0,0])scale([1.25,2.5,1.5])sphere($fn = 200, $fa = 1, $fs = 1, d= 30, center = true);
         blade();
     }
     translate([0,-58.2,-10])wedge();
 }
+}
 
 module half_blade(){
     difference(){
-        scale([1.25,2.5,1.5])sphere($fn = 50, $fa = 20, $fs = 20, d= 30, center = true);
-        scale([1.25,2.5,1.5])sphere($fn = 50, $fa = 20, $fs = 20, d= 26, center = true);
+        scale([1.25,2.5,1.5])sphere($fn = 200, $fa = 1, $fs = 1, d= 30, center = true);
+        scale([1.25,2.5,1.5])sphere($fn = 200, $fa = 1, $fs = 1, d= 26, center = true);
         translate([0,0,12])cube([80,80,30],center = true);
         translate([-22,0,0])cube([20,80,40],center = true);
-        translate([-5,30,0])scale([1,2,1])cylinder($fn = 50, $fa = 20, $fs = 20, h=50,r=8, center = true);
+        translate([-5,30,0])scale([1,2,1])cylinder($fn = 200, $fa = 1, $fs = 1, h=50,r=8, center = true);
         
     }
 }
